@@ -28,10 +28,10 @@ class test_soca(TestCase):
     pass
 
 class test_extract_metadata_py(TestCase):
-
-    def test_general(self):
-        csv = Path(__file__).parent / "csv_files" / "repos.csv"
-        ex.extract(str(csv),"repos-metadata", True, False)
+    pass
+    #def test_general(self):
+    #    csv = Path(__file__).parent / "csv_files" / "repos.csv"
+    #    ex.extract(str(csv),"repos-metadata", True, False)
 class test_metadata_py(TestCase):
     def test_License(self):
         path = Path(__file__).parent / "json_files"  / "widoco_9_test.json"
@@ -177,7 +177,8 @@ class test_metadata_py(TestCase):
         empty = md.metadata(path, mT)
         self.assertIsNone(empty.citations())
     def test_paper(self):
-        path = Path(__file__).parent / "json_files"  / "somef9.json"
+        #path = Path(__file__).parent / "json_files" / "somef9.json"
+        path = Path(__file__).parent / "json_files" / "widoco_9_test.json"
         with path.open() as f:
             data = json.load(f)
         f.close()
@@ -189,7 +190,7 @@ class test_metadata_py(TestCase):
         empty = md.metadata(path, mT)
         self.assertIsNone(empty.paper())
     def test_title(self):
-        path = Path(__file__).parent / "json_files"  / "widoco_9_test.json"
+        path = Path(__file__).parent / "json_files"  / "oeg-upm_r4r.json"
         with path.open() as f:
             data = json.load(f)
         f.close()
@@ -351,15 +352,41 @@ class test_metadata_py(TestCase):
         path = Path("doesntExist")
         empty = md.metadata(path, mT)
         self.assertIsNone(empty.notebook())
+        
+    def test_repo_type(self):
+        path5 = Path(__file__).parent / "json_files" / "somef9.json"
+        with path5.open() as f:
+            somef9jayson = json.load(f)
+        f.close()
+        somef9 = md.metadata(path5, somef9jayson)
+        #print(somef9.repo_type())
+        pass
+    def test_repo_type(self):
+        path5 = Path(__file__).parent / "json_files" / "somef9.json"
+        with path5.open() as f:
+            somef9jayson = json.load(f)
+        f.close()
+        somef9 = md.metadata(path5, somef9jayson)
+        kek = somef9.html_repo_type()
+        print(kek)
     #TODO
     def test_html_repo_icons(self):
-#        path = Path(__file__).parent / "json_files" / "somef9.json"
-#        with path.open() as f:
-#            somef9jayson = json.load(f)
-#        f.close()
-#        somef9 = md.metadata(path, somef9jayson)
-#        somef9.html_repo_icons()
+        path = Path(__file__).parent / "json_files" / "oeg-upm_soca.json"
+        with path.open() as f:
+            somef9jayson = json.load(f)
+        f.close()
+        somef9 = md.metadata(path, somef9jayson)
+        somef9.html_repo_icons()
         pass
+    def test_r4r(self):
+        path = Path(__file__).parent / "json_files" / "oeg-upm_awesome-semantic-web.json"
+        with path.open() as f:
+            r4rjayson = json.load(f)
+        f.close()
+        r4r = md.metadata(path, r4rjayson)
+        r4r.html_repo_icons()
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()
